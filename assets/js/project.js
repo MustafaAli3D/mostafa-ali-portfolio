@@ -1,1 +1,22 @@
-function driveImg(id,w){return "https://drive.google.com/thumbnail?id="+id+"&sz=w"+(w||1800)}var slug=new URLSearchParams(location.search).get("project");var p=PROJECTS.find(function(x){return x.slug===slug})||PROJECTS[0];if(window.GALLERIES){var key=p.slug;if(key==="huawei-esports-arena")key="huawei";if(key==="valorant-5th-anniversary")key="valorant";if(key==="stc-smart-service-booth")key="stc-booth";if(key==="wakeb")key="wakeb";if(GALLERIES[key])p.images=GALLERIES[key];}document.title=p.title+" — Mostafa Ali";var gallery=(p.images||[]).map(function(id,i){return '<figure><img src="'+driveImg(id,2000)+'" alt="'+p.title+' — image '+(i+1)+'" loading="'+(i<2?'eager':'lazy')+'" decoding="async"></figure>'}).join("");document.getElementById("projectPage").innerHTML='<section class="project-hero"><a class="back" href="work.html">← ALL WORK</a><div class="kicker">'+p.category.toUpperCase()+' // '+p.year+'</div><h1>'+p.title+'</h1><div class="project-meta"><span>3D DESIGN & VISUALIZATION</span><span>'+p.year+'</span><a href="'+p.behance+'" target="_blank" rel="noopener">VIEW ON BEHANCE — HIGHER QUALITY ↗</a></div></section><section class="gallery">'+gallery+'</section><section class="project-end"><a class="btn light" href="'+p.behance+'" target="_blank" rel="noopener">VIEW FULL PROJECT ON BEHANCE ↗</a><a class="btn" href="work.html">BACK TO ALL WORK</a></section>';
+function driveImg(id,w){return "https://drive.google.com/thumbnail?id="+id+"&sz=w"+(w||1800)}
+var slug=new URLSearchParams(location.search).get("project");
+var p=PROJECTS.find(function(x){return x.slug===slug})||PROJECTS[0];
+if(window.GALLERIES&&GALLERIES[p.slug])p.images=GALLERIES[p.slug];
+document.title=p.title+" — Mostafa Ali";
+var imgs=p.images||[];
+var gallery=imgs.map(function(id,i){return '<figure><img src="'+driveImg(id,2000)+'" alt="'+p.title+' — image '+(i+1)+'" loading="'+(i<2?'eager':'lazy')+'" decoding="async"></figure>'}).join("");
+document.getElementById("projectPage").innerHTML=
+'<section class="project-hero-card">'+
+  '<a class="project-back" href="work.html">← BACK TO ALL WORK</a>'+
+  '<div class="project-title-row">'+
+    '<div><div class="project-kicker">'+p.category.toUpperCase()+' // '+p.year+'</div><h1>'+p.title+'</h1></div>'+
+    '<a class="behance-btn" href="'+p.behance+'" target="_blank" rel="noopener">VIEW ON BEHANCE ↗</a>'+
+  '</div>'+
+  '<div class="project-facts">'+
+    '<div><span>ROLE</span><b>3D DESIGN & VISUALIZATION</b></div>'+
+    '<div><span>YEAR</span><b>'+p.year+'</b></div>'+
+    '<div><span>GALLERY</span><b>'+imgs.length+' IMAGES</b></div>'+
+  '</div>'+
+'</section>'+
+'<section class="gallery">'+gallery+'</section>'+
+'<section class="project-end"><a class="behance-btn" href="'+p.behance+'" target="_blank" rel="noopener">VIEW FULL PROJECT ON BEHANCE ↗</a><a class="back-work-btn" href="work.html">BACK TO ALL WORK</a></section>';
